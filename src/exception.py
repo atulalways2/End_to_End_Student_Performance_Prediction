@@ -1,20 +1,18 @@
 import sys
-
+from src.logger import logging
 def error_message_detail(error,error_detail:sys):
     _,_,exc_tb=error_detail.exc_info()      #the first two underscore represents to ignore the first two information only the last one
     file_name=exc_tb.tb_frame.f_code.co_filename
-    error_message = "Error message has occured  in python command name [{0}] line number [{1}] error messaage[{2}]".format()(
+    error_message = "Error message has occured  in python command name [{0}] line number [{1}] error messaage[{2}]".format(
      file_name,exc_tb.tb_lineno,str(error)
     
-    return error_message
-
-
     )
+    return error_message
 class CustomException(Exception):
     def __init__(self,error_message,error_detail:sys):
         super().__init__(error_message)
         self.error_messge=error_message_detail(error_message,error_detail=error_detail)
     
-    def __self__(self):
-        return self.error_messge
+    def __str__(self):
+        return self.error_message
 
