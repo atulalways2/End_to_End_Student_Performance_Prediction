@@ -5,16 +5,27 @@ import pandas as pd
 from src.exception import CustomException
 import dill
 from sklearn.metrics import r2_score
+from sklearn.model_selection import GridSearchCV
 
-
-def evaluate_models(X_train,y_train,X_test,y_test,models):
+def evaluate_models(X_train,y_train,X_test,y_test,params,models):
     try:
         report={}
 
         for i in range(len(list(models))):
             model = list(models.values())[i]
+            para=params[list(models.keys())[i]]
 
-            model.fit(X_train,y_train)      #Train model
+            # applying GridSreachCV parameter tunning
+            gs = GridSearchCV(model,para,cv=3)
+            gs.fit(X_train,y_train)
+
+            #selection of best parameter among the tested ones for the models
+            models.set_params(**gs.best_params_)
+            model.fit(X_train,y_train)
+            
+
+            # model.fit(X_train,y_train)      Not applying normal fit due to apllication of GridSearchCV fit.
+
             y_train_pred = model.predict(X_train)
             y_test_pred = model.predict(X_test)
 
