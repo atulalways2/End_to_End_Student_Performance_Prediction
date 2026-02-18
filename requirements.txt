@@ -1,4 +1,14 @@
+scikit-learn
+seaborn 
+matplotlib
+numpy
+pandas
+imbalanced-learn
 xgboost
-lightgbm
+flask
+plotly 
+xgboost
 catboost
-statsmodels
+polars
+dill
+lightgbm
